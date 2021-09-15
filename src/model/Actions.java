@@ -11,64 +11,58 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 public class Actions {
-	
-	File ficheroDeposito= new File ("baseDeDatos.txt");
-	
-	public Actions () {
-		
+
+	File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
+
+	public Actions() {
+
 	}
-	
-	public void existearchivo(){
-        try{
-            if (ficheroDeposito.exists()){
-                ficheroDeposito.createNewFile();
-            }
-        }
-        catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
-	
-	public void agregar(String codigo, String nombre, int precio) {
-		 try{
-	            BufferedWriter Fescribe=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ficheroDeposito,true)));
-	            Fescribe.write(codigo +"    "+nombre+"    "+ precio);                          
-	            Fescribe.write("\n");  
-	            JOptionPane.showMessageDialog(null, "El producto ha sido agregado a la base de datos");
-	            Fescribe.close();
-	        }
-	        catch(Exception ex) {
-	            System.out.println(ex.getMessage());
-	        }
+
+	public void existearchivo() {
+		try {
+			if (ficheroDeposito.exists()) {
+				ficheroDeposito.createNewFile();
+			}
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
 	}
-	
-	public void buscar (String codigo) {
-		String s = "";
+
+	public boolean agregar(Producto producto) {
+		try {
+			BufferedWriter Fescribe = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ficheroDeposito, true)));
+			Fescribe.write(producto.getCodigo() + "    " + producto.getNombre() + "    " + producto.getPrecio());
+			Fescribe.write("\n");
+			Fescribe.close();
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+
+	public Producto buscar(String codigo) {
 		Producto producto = new Producto("", "", 0);
-		try
-        {
+		try {
 			Scanner entrada = new Scanner(ficheroDeposito);
-            BufferedReader leer=new BufferedReader(new FileReader ("baseDeDatos.txt"));
-            String linea="";
-            while((linea=leer.readLine())!=null)
-            {
-                if (linea.indexOf(codigo)!=-1)
-                {
-                    producto.setCodigo(entrada.next());
-                    producto.setNombre(entrada.next());
-                    producto.setPrecio(entrada.nextInt());
-                    s = "Codigo: " + producto.getCodigo() + "\nNombre del producto: " + producto.getNombre() + "\nPrecio del producto: " + producto.getPrecio()+"$";
-            		JOptionPane.showMessageDialog(null, s);
-                }
-            }
-            entrada.close();
-            leer.close();
-        }
-        catch(Exception ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-		
+			try (BufferedReader leer = new BufferedReader(new FileReader("src/archivos/baseDeDatos.txt"))) {
+				String linea = "";
+				while ((linea = leer.readLine()) != null) {
+					if (linea.indexOf(codigo) != -1) {
+						producto.setCodigo(entrada.next());
+						producto.setNombre(entrada.next());
+						producto.setPrecio(entrada.nextInt());
+						return producto;
+					}
+				}
+				entrada.close();
+				leer.close();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		JOptionPane.showMessageDialog(null, "Producto no encontrado");		
+		return null;
 	}
 
 }

@@ -1,12 +1,9 @@
 package model;
 
-import javax.swing.JOptionPane;
-
 public class Producto {
 	private String codigo;
 	private String nombre;
 	private int precio;
-	private Actions accion;
 	
 	
 	public Producto (String codigo, String nombre, int precio) {
@@ -14,7 +11,9 @@ public class Producto {
 		this.nombre = nombre;
 		this.precio = precio;
 	}
-
+	
+	public Producto () {
+	}
 
 	public String getCodigo() {
 		return codigo;
@@ -40,12 +39,7 @@ public class Producto {
 		return precio;
 	}
 
-
 	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
-	
-	
-	
-
 }

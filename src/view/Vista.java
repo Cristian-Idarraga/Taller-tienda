@@ -1,11 +1,9 @@
 package view;
 
 import javax.swing.*;
-import java.util.logging.*;
 import javax.swing.table.*;
 
-import model.Actions;
-
+@SuppressWarnings("serial")
 public class Vista extends JFrame {
 
 	public JButton btnBuscar;
@@ -27,11 +25,10 @@ public class Vista extends JFrame {
 	public JTextField txtProducto;
 
 	public Vista() {
-		initComponents();
+		cargarComponentes();
 	}
 
-	@SuppressWarnings("serial")
-	private void initComponents() {
+	private void cargarComponentes() {
 
 		txtCodigo = new JTextField();
 		jLabel1 = new JLabel();
@@ -51,7 +48,6 @@ public class Vista extends JFrame {
 		btnCargar = new JButton();
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.setResizable(false);
 
 		jLabel1.setText("Codigo");
 
@@ -71,17 +67,14 @@ public class Vista extends JFrame {
 
 		btnLimpiar.setText("Limpiar");
 
-		jtPersonas
-				.setModel(new DefaultTableModel(
-						new Object[][] { { null, null, null }, { null, null, null },
-								{ null, null, null }, { null, null, null } },
-						new String[] { "codigo", "producto", "precio" }) {
-					boolean[] canEdit = new boolean[] { false, false, false };
+		jtPersonas.setModel(new DefaultTableModel(new Object[][] { { null, null, null }, { null, null, null },
+				{ null, null, null }, { null, null, null } }, new String[] { "codigo", "producto", "precio" }) {
+			boolean[] canEdit = new boolean[] { false, false, false };
 
-					public boolean isCellEditable(int rowIndex, int columnIndex) {
-						return canEdit[columnIndex];
-					}
-				});
+			public boolean isCellEditable(int rowIndex, int columnIndex) {
+				return canEdit[columnIndex];
+			}
+		});
 		jScrollPane1.setViewportView(jtPersonas);
 
 		jSeparator1.setOrientation(SwingConstants.VERTICAL);
@@ -117,61 +110,31 @@ public class Vista extends JFrame {
 														GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE))
 										.addGap(18, 18, 18).addComponent(btnBuscar)))
 						.addContainerGap()));
-		layout.setVerticalGroup(
-				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(jSeparator1, GroupLayout.Alignment.TRAILING)
-						.addGroup(GroupLayout.Alignment.TRAILING,
-								layout.createSequentialGroup().addContainerGap(22, Short.MAX_VALUE)
-										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-												.addComponent(txtCodigo, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(jLabel1)
-												.addComponent(btnBuscar))
-										.addGap(18, 18, 18)
-										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-												.addComponent(jlProducto)
-												.addComponent(txtProducto, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGap(18, 18, 18)
-										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-												.addComponent(jlPrecio).addComponent(txtPrecio, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGap(18, 18, 18)
-										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-												.addComponent(jlSpace)
-												.addComponent(btnGuardar).addComponent(btnModificar)
-												.addComponent(btnEliminar).addComponent(btnLimpiar))
-										.addGap(16, 16, 16))
-						.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(btnCargar)
-								.addGap(11, 11, 11)
-								.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+				.addComponent(jSeparator1, GroupLayout.Alignment.TRAILING)
+				.addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+						.addContainerGap(22, Short.MAX_VALUE)
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+								.addComponent(txtCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabel1).addComponent(btnBuscar))
+						.addGap(18, 18, 18)
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(jlProducto)
+								.addComponent(txtProducto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18, 18, 18)
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(jlPrecio)
+								.addComponent(txtPrecio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18, 18, 18)
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(jlSpace)
+								.addComponent(btnGuardar).addComponent(btnModificar).addComponent(btnEliminar)
+								.addComponent(btnLimpiar))
+						.addGap(16, 16, 16))
+				.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(btnCargar).addGap(11, 11, 11)
+						.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		pack();
-	}
-
-	public static void main(String args[]) {
-//		try {
-//			for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-//				if ("Windows".equals(info.getName())) {
-//					UIManager.setLookAndFeel(info.getClassName());
-//					break;
-//				}
-//			}
-//		} catch (Exception ex) {
-//			Logger.getLogger(Vista.class.getName()).log(Level.SEVERE, null, ex);
-//		}
-//
-//		run();
-		
-		Actions obj = new Actions();
-		obj.existearchivo();
-		obj.agregar("12345", "sopa", 3000);
-		obj.buscar("12345");
-
-	}
-
-	public static void run() {
-		new Vista().setVisible(true);
 	}
 
 }
