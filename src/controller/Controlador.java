@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -57,6 +58,12 @@ public class Controlador implements ActionListener{
 				this.vista.txtCodigo.setText(product.getCodigo());
 				this.vista.txtProducto.setText(product.getNombre());
 				this.vista.txtPrecio.setText(String.valueOf(product.getPrecio()));
+			}
+		}
+		if(e.getSource() == this.vista.btnCargar) {
+			List<Producto> productos = this.actions.buscarTodo();
+			if(productos != null && productos.size() > 0) {
+				productos.forEach(producto -> System.out.println(producto.getCodigo() + "\t" +producto.getNombre()));
 			}
 		}
 		

@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -57,6 +59,31 @@ public class Actions {
 				}
 				entrada.close();
 				leer.close();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		JOptionPane.showMessageDialog(null, "Producto no encontrado");		
+		return null;
+	}
+	
+	public List<Producto> buscarTodo() {
+		Producto producto = new Producto("", "", 0);
+		List<Producto> productos = new ArrayList<Producto>();
+		try {
+			Scanner entrada = new Scanner(ficheroDeposito);
+			try (BufferedReader leer = new BufferedReader(new FileReader("src/archivos/baseDeDatos.txt"))) {
+				String linea = "";
+				while ((linea = leer.readLine()) != null) {
+						producto.setCodigo(entrada.next());
+						producto.setNombre(entrada.next());
+						producto.setPrecio(entrada.nextInt());
+						productos.add(producto);
+				}
+				linea = "";
+				entrada.close();
+				leer.close();
+				return productos;
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
