@@ -13,33 +13,31 @@ public class Vista extends JFrame {
 	public JButton btnLimpiar;
 	public JButton btnModificar;
 	private JLabel jLabel1;
-	private JLabel jLabel2;
-	private JLabel jLabel3;
+	private JLabel jlProducto;
+	private JLabel jlPrecio;
 	private JScrollPane jScrollPane1;
 	private JSeparator jSeparator1;
-	private JLabel jlabelcedula;
+	private JLabel jlSpace;
 	public JTable jtPersonas;
-	public JTextField txtCedula;
 	public JTextField txtCodigo;
-	public JTextField txtEdad;
+	public JTextField txtPrecio;
 	public JTextField txtID;
-	public JTextField txtNombre;
+	public JTextField txtProducto;
 
 	public Vista() {
 		initComponents();
 	}
 
+	@SuppressWarnings("serial")
 	private void initComponents() {
 
 		txtCodigo = new JTextField();
 		jLabel1 = new JLabel();
-		txtID = new JTextField();
-		jLabel2 = new JLabel();
-		txtNombre = new JTextField();
-		jLabel3 = new JLabel();
-		txtEdad = new JTextField();
-		jlabelcedula = new JLabel();
-		txtCedula = new JTextField();
+		jlProducto = new JLabel();
+		txtProducto = new JTextField();
+		jlPrecio = new JLabel();
+		txtPrecio = new JTextField();
+		jlSpace = new JLabel();
 		btnBuscar = new JButton();
 		btnGuardar = new JButton();
 		btnModificar = new JButton();
@@ -51,16 +49,15 @@ public class Vista extends JFrame {
 		btnCargar = new JButton();
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setResizable(false);
 
 		jLabel1.setText("Codigo");
 
-		txtID.setEditable(false);
+		jlProducto.setText("Producto");
 
-		jLabel2.setText("Nombre");
+		jlPrecio.setText("Precio");
 
-		jLabel3.setText("Edad");
-
-		jlabelcedula.setText("Cedula");
+		jlSpace.setText("\n");
 
 		btnBuscar.setText("Buscar");
 
@@ -74,10 +71,10 @@ public class Vista extends JFrame {
 
 		jtPersonas
 				.setModel(new DefaultTableModel(
-						new Object[][] { { null, null, null, null }, { null, null, null, null },
-								{ null, null, null, null }, { null, null, null, null } },
-						new String[] { "codigo", "nombre", "edad", "cedula" }) {
-					boolean[] canEdit = new boolean[] { false, false, false, false };
+						new Object[][] { { null, null, null }, { null, null, null },
+								{ null, null, null }, { null, null, null } },
+						new String[] { "codigo", "producto", "precio" }) {
+					boolean[] canEdit = new boolean[] { false, false, false };
 
 					public boolean isCellEditable(int rowIndex, int columnIndex) {
 						return canEdit[columnIndex];
@@ -106,17 +103,15 @@ public class Vista extends JFrame {
 										.addGap(18, 18, 18).addComponent(btnLimpiar))
 								.addGroup(layout.createSequentialGroup()
 										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-												.addComponent(jLabel2).addComponent(jLabel1).addComponent(jLabel3)
-												.addComponent(jlabelcedula))
+												.addComponent(jlProducto).addComponent(jLabel1).addComponent(jlPrecio)
+												.addComponent(jlSpace))
 										.addGap(18, 18, 18)
 										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
 												.addGroup(layout.createSequentialGroup()
 														.addComponent(txtCodigo, GroupLayout.PREFERRED_SIZE, 117,
 																GroupLayout.PREFERRED_SIZE)
-														.addGap(44, 44, 44).addComponent(txtID,
-																GroupLayout.PREFERRED_SIZE, 51,
-																GroupLayout.PREFERRED_SIZE))
-												.addComponent(txtNombre).addComponent(txtCedula).addComponent(txtEdad,
+														.addGap(44, 44, 44).addComponent(jlSpace))
+												.addComponent(txtProducto).addComponent(txtPrecio,
 														GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE))
 										.addGap(18, 18, 18).addComponent(btnBuscar)))
 						.addContainerGap()));
@@ -129,25 +124,19 @@ public class Vista extends JFrame {
 												.addComponent(txtCodigo, GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 												.addComponent(jLabel1)
-												.addComponent(txtID, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 												.addComponent(btnBuscar))
 										.addGap(18, 18, 18)
 										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-												.addComponent(jLabel2)
-												.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE,
+												.addComponent(jlProducto)
+												.addComponent(txtProducto, GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addGap(18, 18, 18)
 										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-												.addComponent(jLabel3).addComponent(txtEdad, GroupLayout.PREFERRED_SIZE,
+												.addComponent(jlPrecio).addComponent(txtPrecio, GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addGap(18, 18, 18)
 										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-												.addComponent(jlabelcedula)
-												.addComponent(txtCedula, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGap(28, 28, 28)
-										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+												.addComponent(jlSpace)
 												.addComponent(btnGuardar).addComponent(btnModificar)
 												.addComponent(btnEliminar).addComponent(btnLimpiar))
 										.addGap(16, 16, 16))
