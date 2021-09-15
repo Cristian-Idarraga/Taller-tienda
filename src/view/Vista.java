@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.util.logging.*;
 import javax.swing.table.*;
 
+import model.Actions;
+
 public class Vista extends JFrame {
 
 	public JButton btnBuscar;
@@ -148,18 +150,23 @@ public class Vista extends JFrame {
 	}
 
 	public static void main(String args[]) {
-		try {
-			for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				if ("Windows".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (Exception ex) {
-			Logger.getLogger(Vista.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		run();
+//		try {
+//			for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+//				if ("Windows".equals(info.getName())) {
+//					UIManager.setLookAndFeel(info.getClassName());
+//					break;
+//				}
+//			}
+//		} catch (Exception ex) {
+//			Logger.getLogger(Vista.class.getName()).log(Level.SEVERE, null, ex);
+//		}
+//
+//		run();
+		
+		Actions obj = new Actions();
+		obj.existearchivo();
+		obj.agregar("12345", "sopa", 3000);
+		obj.buscar("12345");
 
 	}
 
