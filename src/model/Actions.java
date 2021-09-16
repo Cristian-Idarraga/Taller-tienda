@@ -165,7 +165,7 @@ public class Actions {
 		List<Producto> productos = this.buscarTodo();
 		DefaultTableModel model = new DefaultTableModel();
 		int nColumns = 3;
-		vista.jtPersonas.setModel(model);
+		vista.jtProductos.setModel(model);
 		model.addColumn("Codigo");
 		model.addColumn("Producto");
 		model.addColumn("Precio");

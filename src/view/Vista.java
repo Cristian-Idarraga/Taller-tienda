@@ -12,13 +12,13 @@ public class Vista extends JFrame {
 	public JButton btnGuardar;
 	public JButton btnLimpiar;
 	public JButton btnModificar;
-	private JLabel jLabel1;
+	private JLabel jlCodigo;
 	private JLabel jlProducto;
 	private JLabel jlPrecio;
-	private JScrollPane jScrollPane1;
-	private JSeparator jSeparator1;
+	private JScrollPane jscroll;
+	private JSeparator jseparador;
 	private JLabel jlSpace;
-	public JTable jtPersonas;
+	public JTable jtProductos;
 	public JTextField txtCodigo;
 	public JTextField txtPrecio;
 	public JTextField txtID;
@@ -31,7 +31,7 @@ public class Vista extends JFrame {
 	private void cargarComponentes() {
 
 		txtCodigo = new JTextField();
-		jLabel1 = new JLabel();
+		jlCodigo = new JLabel();
 		jlProducto = new JLabel();
 		txtProducto = new JTextField();
 		jlPrecio = new JLabel();
@@ -42,14 +42,14 @@ public class Vista extends JFrame {
 		btnModificar = new JButton();
 		btnEliminar = new JButton();
 		btnLimpiar = new JButton();
-		jScrollPane1 = new JScrollPane();
-		jtPersonas = new JTable();
-		jSeparator1 = new JSeparator();
+		jscroll = new JScrollPane();
+		jtProductos = new JTable();
+		jseparador = new JSeparator();
 		btnCargar = new JButton();
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		jLabel1.setText("Codigo");
+		jlCodigo.setText("Codigo");
 
 		jlProducto.setText("Producto");
 
@@ -67,7 +67,13 @@ public class Vista extends JFrame {
 
 		btnLimpiar.setText("Limpiar");
 
-		jtPersonas.setModel(new DefaultTableModel(new Object[][] { { null, null, null }, { null, null, null },
+		jscroll.setViewportView(jtProductos);
+		
+		jseparador.setOrientation(SwingConstants.VERTICAL);
+		
+		btnCargar.setText("Cargar");
+		
+		jtProductos.setModel(new DefaultTableModel(new Object[][] { { null, null, null }, { null, null, null },
 				{ null, null, null }, { null, null, null } }, new String[] { "codigo", "producto", "precio" }) {
 			boolean[] canEdit = new boolean[] { false, false, false };
 
@@ -75,22 +81,17 @@ public class Vista extends JFrame {
 				return canEdit[columnIndex];
 			}
 		});
-		jScrollPane1.setViewportView(jtPersonas);
-
-		jSeparator1.setOrientation(SwingConstants.VERTICAL);
-
-		btnCargar.setText("Cargar");
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup()
 						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-								.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(jScrollPane1,
+								.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(jscroll,
 										GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
 								.addGroup(layout.createSequentialGroup().addGap(183, 183, 183).addComponent(btnCargar)))
 						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-						.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jseparador, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 						.addGap(7, 7, 7)
 						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 								.addGroup(layout.createSequentialGroup().addComponent(btnGuardar).addGap(18, 18, 18)
@@ -98,7 +99,7 @@ public class Vista extends JFrame {
 										.addGap(18, 18, 18).addComponent(btnLimpiar))
 								.addGroup(layout.createSequentialGroup()
 										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-												.addComponent(jlProducto).addComponent(jLabel1).addComponent(jlPrecio)
+												.addComponent(jlProducto).addComponent(jlCodigo).addComponent(jlPrecio)
 												.addComponent(jlSpace))
 										.addGap(18, 18, 18)
 										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
@@ -111,13 +112,13 @@ public class Vista extends JFrame {
 										.addGap(18, 18, 18).addComponent(btnBuscar)))
 						.addContainerGap()));
 		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addComponent(jSeparator1, GroupLayout.Alignment.TRAILING)
+				.addComponent(jseparador, GroupLayout.Alignment.TRAILING)
 				.addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
 						.addContainerGap(22, Short.MAX_VALUE)
 						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 								.addComponent(txtCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabel1).addComponent(btnBuscar))
+								.addComponent(jlCodigo).addComponent(btnBuscar))
 						.addGap(18, 18, 18)
 						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(jlProducto)
 								.addComponent(txtProducto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
@@ -132,7 +133,7 @@ public class Vista extends JFrame {
 								.addComponent(btnLimpiar))
 						.addGap(16, 16, 16))
 				.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(btnCargar).addGap(11, 11, 11)
-						.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jscroll, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		pack();
 	}
