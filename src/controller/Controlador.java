@@ -34,19 +34,24 @@ public class Controlador implements ActionListener{
         this.vista.setVisible(true);  
         this.vista.setLocationRelativeTo(null);
         this.vista.setResizable(false);
+        this.limpiar();
     }
     
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == this.vista.btnGuardar) {
-			this.producto.setCodigo(this.vista.txtCodigo.getText());
-			this.producto.setNombre(this.vista.txtProducto.getText());
-			this.producto.setPrecio(Integer.parseInt(this.vista.txtPrecio.getText()));
-			if(this.actions.agregar(producto)) {
-				JOptionPane.showMessageDialog(null, "Producto agregado");
-				//Cargar
+			if(!this.vista.txtCodigo.getText().trim().equals("") && !this.vista.txtProducto.getText().trim().equals("") && !this.vista.txtPrecio.getText().trim().equals("")) {
+				this.producto.setCodigo(this.vista.txtCodigo.getText());
+				this.producto.setNombre(this.vista.txtProducto.getText());
+				this.producto.setPrecio(Integer.parseInt(this.vista.txtPrecio.getText()));
+				if(this.actions.agregar(producto)) {
+					JOptionPane.showMessageDialog(null, "Producto agregado");
+					//Cargar
+				} else {
+					JOptionPane.showMessageDialog(null, "Error al guardar el producto");
+				}				
 			} else {
-				JOptionPane.showMessageDialog(null, "Error al guardar el producto");
+				JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
 			}
 			this.limpiar();
 		}
@@ -58,20 +63,63 @@ public class Controlador implements ActionListener{
 				this.vista.txtCodigo.setText(product.getCodigo());
 				this.vista.txtProducto.setText(product.getNombre());
 				this.vista.txtPrecio.setText(String.valueOf(product.getPrecio()));
+				this.vista.txtCodigo.enable(false);
+			} else {
+				this.limpiar();
 			}
 		}
-		if(e.getSource() == this.vista.btnCargar) {
-			List<Producto> productos = this.actions.buscarTodo();
-			if(productos != null && productos.size() > 0) {
-				productos.forEach(producto -> System.out.println(producto.getCodigo() + "\t" +producto.getNombre()));
+		if(e.getSource() == this.vista.btnEliminar) {
+			this.producto.setCodigo(this.vista.txtCodigo.getText());
+			try {
+				if(this.actions.eliminar(this.producto.getCodigo())) {
+					JOptionPane.showMessageDialog(null, "Producto elimiando");
+				} else {
+					JOptionPane.showMessageDialog(null, "Error al eliminar");
+				}
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, "Error al eliminar");
+				e1.printStackTrace();
 			}
+			this.limpiar();
 		}
+		
+		if(e.getSource() == this.vista.btnModificar) {
+			try {
+					if(this.actions.eliminar(producto.getCodigo())) {
+						this.producto.setCodigo(this.vista.txtCodigo.getText());
+						this.producto.setNombre(this.vista.txtProducto.getText());
+						this.producto.setPrecio(Integer.parseInt(this.vista.txtPrecio.getText()));
+						if(this.actions.agregar(producto)) {
+							JOptionPane.showMessageDialog(null, "Producto Actualizado");
+							//Cargar
+						} else {
+							JOptionPane.showMessageDialog(null, "Error al modificar el producto");
+						}
+						this.limpiar();
+					}					
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			this.limpiar();
+		}
+		
+		if(e.getSource() == this.vista.btnLimpiar) {
+			this.limpiar();
+		}
+//		if(e.getSource() == this.vista.btnCargar) {
+//			List<Producto> productos = this.actions.buscarTodo();
+//			if(productos != null && productos.size() > 0) {
+//				productos.forEach(producto -> System.out.println(producto.getCodigo() + "\t" +producto.getNombre()));
+//			}
+//		}
 		
 	}
 	
 	public void limpiar() {
-		this.vista.txtCodigo.setText(null);
-		this.vista.txtProducto.setText(null);
-		this.vista.txtPrecio.setText(null);
+		this.vista.txtCodigo.setText("");
+		this.vista.txtProducto.setText("");
+		this.vista.txtPrecio.setText("");
+		this.vista.txtCodigo.enable(true);
 	}
 }
