@@ -56,6 +56,8 @@ public class Controlador implements ActionListener{
 			this.limpiar();
 		}
 		if(e.getSource() == this.vista.btnBuscar) {
+			this.vista.txtProducto.enable(false);
+			this.vista.txtPrecio.enable(false);
 			this.producto.setCodigo(this.vista.txtCodigo.getText());
 			Producto product = this.actions.buscar(this.producto.getCodigo());
 			if(product != null) {
@@ -95,46 +97,15 @@ public class Controlador implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Error al modificar");
 				e1.printStackTrace();
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			//			try {
-//					if(this.actions.eliminar(producto.getCodigo())) {
-//						this.producto.setCodigo(this.vista.txtCodigo.getText());
-//						this.producto.setNombre(this.vista.txtProducto.getText());
-//						this.producto.setPrecio(Integer.parseInt(this.vista.txtPrecio.getText()));
-//						if(this.actions.agregar(producto)) {
-//							JOptionPane.showMessageDialog(null, "Producto Actualizado");
-//							//Cargar
-//						} else {
-//							JOptionPane.showMessageDialog(null, "Error al modificar el producto");
-//						}
-//						this.limpiar();
-//					}					
-//			} catch (Exception e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
 			this.limpiar();
 		}
 		
 		if(e.getSource() == this.vista.btnLimpiar) {
 			this.limpiar();
 		}
-//		if(e.getSource() == this.vista.btnCargar) {
-//			List<Producto> productos = this.actions.buscarTodo();
-//			if(productos != null && productos.size() > 0) {
-//				productos.forEach(producto -> System.out.println(producto.getCodigo() + "\t" +producto.getNombre()));
-//			}
-//		}
+		if(e.getSource() == this.vista.btnCargar) {
+			this.actions.agregarATabla(vista);
+		}
 		
 	}
 	
@@ -143,5 +114,7 @@ public class Controlador implements ActionListener{
 		this.vista.txtProducto.setText("");
 		this.vista.txtPrecio.setText("");
 		this.vista.txtCodigo.enable(true);
+		this.vista.txtProducto.enable(true);
+		this.vista.txtPrecio.enable(true);
 	}
 }

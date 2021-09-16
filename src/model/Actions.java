@@ -5,13 +5,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import view.Vista;
 
 public class Actions {
 
@@ -103,9 +105,9 @@ public class Actions {
 			entrada.close();
 			leer.close();
 			vaciar();
+			ficheroDeposito2.delete();
 			return true;
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			return false;
 		}
 	}
@@ -135,23 +137,15 @@ public class Actions {
 			leer.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		
 		}
 		
 	}
-//	public boolean mod(Producto producto) {
-//		if(this.agregar(producto)) {
-//			JOptionPane.showMessageDialog(null, "guardado");
-//		}
-//		
-//		return false;
-//	}
-//	
+
 	public boolean modificar (String codigo) throws Exception {
 		Producto mod;
 		mod = this.buscar(codigo);
-		mod.setNombre(JOptionPane.showInputDialog(null, "ingrese el nuevo nombre para el producto con codigo: " + codigo));
-		mod.setPrecio(Integer.parseInt(JOptionPane.showInputDialog(null, "ingrese el nuevo precio para el producto con codigo: " + codigo)));
+		mod.setNombre(JOptionPane.showInputDialog(null, "[" + codigo + "]  nuevo nombre"));
+		mod.setPrecio(Integer.parseInt(JOptionPane.showInputDialog(null, "[" + codigo + "]  nuevo precio")));
 		this.eliminar(codigo);
 		try {
 			File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
@@ -167,31 +161,49 @@ public class Actions {
 	}
 	
 	
-	
+	public void agregarATabla(Vista vista) {
+		List<Producto> productos = this.buscarTodo();
+		DefaultTableModel model = new DefaultTableModel();
+		int nColumns = 3;
+		vista.jtPersonas.setModel(model);
+		model.addColumn("Codigo");
+		model.addColumn("Producto");
+		model.addColumn("Precio");
+		for(var data : productos) {
+			Object[] filas = new Object[nColumns];
+			filas[0] = data.getCodigo();
+			filas[1] = data.getNombre();
+			filas[2] = data.getPrecio();
+			model.addRow(filas);
+		}
+	}
 	
 	public List<Producto> buscarTodo() {
-		Producto producto = new Producto("", "", 0);
 		List<Producto> productos = new ArrayList<Producto>();
 		try {
 			File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
-			Scanner entrada = new Scanner(ficheroDeposito);
 			try (BufferedReader leer = new BufferedReader(new FileReader("src/archivos/baseDeDatos.txt"))) {
 				String linea = "";
 				while ((linea = leer.readLine()) != null) {
-						producto.setCodigo(entrada.next());
-						producto.setNombre(entrada.next());
-						producto.setPrecio(entrada.nextInt());
-						productos.add(producto);
+					Producto producto = new Producto("", "", 0);
+					String [] data = linea.split(" ");
+						try {
+							producto.setCodigo(data[0]);
+							producto.setNombre(data[1]);
+							producto.setPrecio(Integer.parseInt(data[2]));							
+							productos.add(producto);
+						} catch (Exception e) {
+							return null;
+						}
+					
 				}
-				linea = "";
-				entrada.close();
 				leer.close();
 				return productos;
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		JOptionPane.showMessageDialog(null, "Producto no encontrado");		
+		JOptionPane.showMessageDialog(null, "Producto no encontrado");
 		return null;
 	}
 

@@ -1,3 +1,3 @@
 789 sopa 3000
-123 porro 1000
-789 sopa 3000
+321 max 400
+1234 frijol 200
