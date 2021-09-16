@@ -90,8 +90,8 @@ public class Actions {
 					producto.setCodigo(entrada.next());
 					producto.setNombre(entrada.next());
 					producto.setPrecio(entrada.nextInt());
-				if (!(linea.indexOf(codigo) != -1)) {
-					Fescribe.write(producto.getCodigo() + "    " + producto.getNombre() + "    " + producto.getPrecio());
+				if (linea.indexOf(codigo) == -1) {
+					Fescribe.write(producto.getCodigo() + " " + producto.getNombre() + " " + producto.getPrecio());
 					Fescribe.write("\n");
 					found = true;
 				}
@@ -125,10 +125,11 @@ public class Actions {
 					producto.setCodigo(entrada.next());
 					producto.setNombre(entrada.next());
 					producto.setPrecio(entrada.nextInt());
-					Fescribe.write(producto.getCodigo() + "    " + producto.getNombre() + "    " + producto.getPrecio());				
+					Fescribe.write(producto.getCodigo() + " " + producto.getNombre() + " " + producto.getPrecio());				
 					Fescribe.write("\n");
 				
 			}
+			ficheroDeposito2.delete();
 			Fescribe.close();
 			entrada.close();
 			leer.close();
@@ -146,24 +147,24 @@ public class Actions {
 //		return false;
 //	}
 //	
-//	public boolean modificar (String codigo) throws Exception {
-//		Producto mod;
-//		mod = this.buscar(codigo);
-//		mod.setNombre(JOptionPane.showInputDialog(null, "ingrese el nuevo nombre para el producto con codigo: " + codigo));
-//		mod.setPrecio(Integer.parseInt(JOptionPane.showInputDialog(null, "ingrese el nuevo precio para el producto con codigo: " + codigo)));
-//		this.eliminar(codigo);
-//		try {
-//			File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
-//			BufferedWriter Fescribe = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ficheroDeposito, true)));
-//			Fescribe.write(mod.getCodigo() + "    " + mod.getNombre() + "    " + mod.getPrecio());				
-//			Fescribe.write("\n");
-//			Fescribe.close();
-//			return true;
-//		} catch (Exception ex) {
-//			ex.printStackTrace();
-//			return false;
-//		}
-//	}
+	public boolean modificar (String codigo) throws Exception {
+		Producto mod;
+		mod = this.buscar(codigo);
+		mod.setNombre(JOptionPane.showInputDialog(null, "ingrese el nuevo nombre para el producto con codigo: " + codigo));
+		mod.setPrecio(Integer.parseInt(JOptionPane.showInputDialog(null, "ingrese el nuevo precio para el producto con codigo: " + codigo)));
+		this.eliminar(codigo);
+		try {
+			File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
+			BufferedWriter Fescribe = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ficheroDeposito, true)));
+			Fescribe.write(mod.getCodigo() + " " + mod.getNombre() + " " + mod.getPrecio());				
+			Fescribe.write("\n");
+			Fescribe.close();
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
 	
 	
 	

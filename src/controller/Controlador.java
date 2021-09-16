@@ -84,23 +84,45 @@ public class Controlador implements ActionListener{
 		}
 		
 		if(e.getSource() == this.vista.btnModificar) {
+			this.producto.setCodigo(this.vista.txtCodigo.getText());
 			try {
-					if(this.actions.eliminar(producto.getCodigo())) {
-						this.producto.setCodigo(this.vista.txtCodigo.getText());
-						this.producto.setNombre(this.vista.txtProducto.getText());
-						this.producto.setPrecio(Integer.parseInt(this.vista.txtPrecio.getText()));
-						if(this.actions.agregar(producto)) {
-							JOptionPane.showMessageDialog(null, "Producto Actualizado");
-							//Cargar
-						} else {
-							JOptionPane.showMessageDialog(null, "Error al modificar el producto");
-						}
-						this.limpiar();
-					}					
+				if(this.actions.modificar(this.producto.getCodigo())) {
+					JOptionPane.showMessageDialog(null, "Producto modificado");
+				} else {
+					JOptionPane.showMessageDialog(null, "Error al modificar");
+				}
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Error al modificar");
 				e1.printStackTrace();
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//			try {
+//					if(this.actions.eliminar(producto.getCodigo())) {
+//						this.producto.setCodigo(this.vista.txtCodigo.getText());
+//						this.producto.setNombre(this.vista.txtProducto.getText());
+//						this.producto.setPrecio(Integer.parseInt(this.vista.txtPrecio.getText()));
+//						if(this.actions.agregar(producto)) {
+//							JOptionPane.showMessageDialog(null, "Producto Actualizado");
+//							//Cargar
+//						} else {
+//							JOptionPane.showMessageDialog(null, "Error al modificar el producto");
+//						}
+//						this.limpiar();
+//					}					
+//			} catch (Exception e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
 			this.limpiar();
 		}
 		
