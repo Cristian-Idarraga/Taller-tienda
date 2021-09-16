@@ -131,7 +131,22 @@ public class Actions {
 		
 	}
 	
-	
+	public void modificar (String codigo) {
+		Producto mod;
+		mod = this.buscar(codigo);
+		mod.setNombre(JOptionPane.showInputDialog(null, "ingrese el nuevo nombre para el producto con codigo: " + codigo));
+		mod.setPrecio(Integer.parseInt(JOptionPane.showInputDialog(null, "ingrese el nuevo precio para el producto con codigo: " + codigo)));
+		this.eliminar(codigo);
+		try {
+			File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
+			BufferedWriter Fescribe = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ficheroDeposito, true)));
+			Fescribe.write(mod.getCodigo() + "    " + mod.getNombre() + "    " + mod.getPrecio());				
+			Fescribe.write("\n");
+			Fescribe.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 	
 	
 	
