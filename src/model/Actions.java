@@ -14,7 +14,8 @@ import javax.swing.JOptionPane;
 
 public class Actions {
 
-	File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
+	
+	
 
 	public Actions() {
 
@@ -22,6 +23,7 @@ public class Actions {
 
 	public void existearchivo() {
 		try {
+			File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
 			if (ficheroDeposito.exists()) {
 				ficheroDeposito.createNewFile();
 			}
@@ -32,6 +34,7 @@ public class Actions {
 
 	public boolean agregar(Producto producto) {
 		try {
+			File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
 			BufferedWriter Fescribe = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ficheroDeposito, true)));
 			Fescribe.write(producto.getCodigo() + "    " + producto.getNombre() + "    " + producto.getPrecio());
 			Fescribe.write("\n");
@@ -46,6 +49,7 @@ public class Actions {
 	public Producto buscar(String codigo) {
 		Producto producto = new Producto("", "", 0);
 		try {
+			File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
 			Scanner entrada = new Scanner(ficheroDeposito);
 			try (BufferedReader leer = new BufferedReader(new FileReader("src/archivos/baseDeDatos.txt"))) {
 				String linea = "";
@@ -67,10 +71,76 @@ public class Actions {
 		return null;
 	}
 	
+	
+	public void eliminar (String codigo) {
+		Producto producto = new Producto();
+		
+		String linea = "";
+		try {
+			File ficheroDeposito2 = new File("src/archivos/baseDeDatos2.txt");
+			File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
+			Scanner entrada = new Scanner(ficheroDeposito);
+			BufferedWriter Fescribe = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ficheroDeposito2, true)));
+			BufferedReader leer = new BufferedReader(new FileReader("src/archivos/baseDeDatos.txt"));
+			while ((linea = leer.readLine()) != null) {
+					producto.setCodigo(entrada.next());
+					producto.setNombre(entrada.next());
+					producto.setPrecio(entrada.nextInt());
+				if (!(linea.indexOf(codigo) != -1)) {
+					Fescribe.write(producto.getCodigo() + "    " + producto.getNombre() + "    " + producto.getPrecio());
+					Fescribe.write("\n");
+				}
+			}
+			Fescribe.close();
+			entrada.close();
+			leer.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		
+		}
+		vaciar();
+		
+	}
+	
+	public void vaciar () {
+		Producto producto = new Producto();
+		String linea = "";
+		try {
+			File ficheroDeposito2 = new File("src/archivos/baseDeDatos2.txt");
+			File ficheroDepositoAux = new File("src/archivos/baseDeDatos.txt");
+			ficheroDepositoAux.delete();
+			File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
+			Scanner entrada = new Scanner(ficheroDeposito2);
+			BufferedWriter Fescribe = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ficheroDeposito, true)));
+			BufferedReader leer = new BufferedReader(new FileReader("src/archivos/baseDeDatos2.txt"));
+			while ((linea = leer.readLine()) != null) {
+					producto.setCodigo(entrada.next());
+					producto.setNombre(entrada.next());
+					producto.setPrecio(entrada.nextInt());
+					Fescribe.write(producto.getCodigo() + "    " + producto.getNombre() + "    " + producto.getPrecio());				
+					Fescribe.write("\n");
+				
+			}
+			Fescribe.close();
+			entrada.close();
+			leer.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
 	public List<Producto> buscarTodo() {
 		Producto producto = new Producto("", "", 0);
 		List<Producto> productos = new ArrayList<Producto>();
 		try {
+			File ficheroDeposito = new File("src/archivos/baseDeDatos.txt");
 			Scanner entrada = new Scanner(ficheroDeposito);
 			try (BufferedReader leer = new BufferedReader(new FileReader("src/archivos/baseDeDatos.txt"))) {
 				String linea = "";
